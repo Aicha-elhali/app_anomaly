@@ -1,10 +1,13 @@
-import { Stack } from 'expo-router';
 import React from 'react';
+import { Stack } from 'expo-router';
+import { AnomalyProvider } from '../context/AnomalyContext';
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <AnomalyProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </AnomalyProvider>
   );
 }
