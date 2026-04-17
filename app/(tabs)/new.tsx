@@ -1,10 +1,26 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/theme';
+import { useAnomalies } from '../../context/AnomalyContext';
 
 export default function NewAnomalyScreen() {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const { addAnomaly } = useAnomalies();
+
+  const handleSave = () => {
+    if (!name.trim()) {
+      Alert.alert('Error', 'Please enter a name for the anomaly.');
+      return;
+    }
+    addAnomaly(name, description, null);
+    setName('');
+    setDescription('');
+    Alert.alert('Success', 'Anomaly saved!');
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView>
@@ -17,6 +33,8 @@ export default function NewAnomalyScreen() {
             style={styles.input}
             placeholder="e.g. Mission Section 31"
             placeholderTextColor={COLORS.textMuted}
+            value={name}
+            onChangeText={setName}
           />
 
           <Text style={styles.fieldLabel}>DESCRIPTION</Text>
@@ -26,6 +44,8 @@ export default function NewAnomalyScreen() {
             placeholderTextColor={COLORS.textMuted}
             multiline
             numberOfLines={4}
+            value={description}
+            onChangeText={setDescription}
           />
 
           <Text style={styles.fieldLabel}>IMAGE</Text>
@@ -34,7 +54,7 @@ export default function NewAnomalyScreen() {
             <Text style={styles.imagePickerText}>Tap to select image</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.saveButton}>
+          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
             <Text style={styles.saveButtonText}>Save Anomaly</Text>
           </TouchableOpacity>
         </View>
@@ -90,7 +110,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     borderStyle: 'dashed',
     borderRadius: 12,
-    height: 200,
+    height: 120,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
