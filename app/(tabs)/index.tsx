@@ -1,24 +1,28 @@
+import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../../constants/theme';
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.screen}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?w=800' }}
-          style={styles.heroImage}
-        />
-      </View>
+    <SafeAreaView style={styles.screen}>
+      <ScrollView>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?w=800' }}
+            style={styles.heroImage}
+          />
+        </View>
 
-      <View style={styles.content}>
-        <Text style={styles.label}>NASA ANOMALY MONITOR</Text>
-        <Text style={styles.title}>Home</Text>
-        <Text style={styles.description}>
-          Review the mission status, recent activity, and the most important anomaly alerts in one place.
-        </Text>
-      </View>
-    </ScrollView>
+        <View style={styles.content}>
+          <Text style={styles.label}>NASA ANOMALY MONITOR</Text>
+          <Text style={styles.title}>Home</Text>
+          <Text style={styles.description}>
+            Review the mission status, recent activity, and the most important anomaly alerts in one place.
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

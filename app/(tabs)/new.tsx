@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import COLORS from '../../constants/theme';
+import React from 'react';
 
 export default function NewAnomalyScreen() {
   return (

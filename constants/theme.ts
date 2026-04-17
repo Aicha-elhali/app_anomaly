@@ -1,14 +1,14 @@
 // Color palette for the Anomaly Monitor app
 const COLORS = {
-  background: '#000000ff',
-  surface: '#141825',
+  background: '#ffffffff',
+  surface: '#ffffffff',
   surfaceLight: '#1C2133',
-  accent: '#2CFF05',
+  accent: '#0d35a5ff',
   purple: '#7B5EA7',
-  text: '#E8E8EC',
+  text: '#000000ff',
   textMuted: '#8A8FA3',
-  textLabel: '#E8612D',
-  border: '#252A3A',
+  textLabel: '#5126c6ff',
+  border: '#4d5981ff',
   card: '#161B2E',
   success: '#2CFF05',
 };
