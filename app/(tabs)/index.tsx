@@ -1,24 +1,60 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import COLORS from '../../constants/theme';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-    </View>
+    <ScrollView style={styles.screen}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: 'https://images.unsplash.com/photo-1614728263952-84ea256f9679?w=800' }}
+          style={styles.heroImage}
+        />
+      </View>
+
+      <View style={styles.content}>
+        <Text style={styles.label}>NASA ANOMALY MONITOR</Text>
+        <Text style={styles.title}>Home</Text>
+        <Text style={styles.description}>
+          Review the mission status, recent activity, and the most important anomaly alerts in one place.
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     backgroundColor: COLORS.background,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  imageContainer: {
+    padding: 16,
+  },
+  heroImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 16,
+  },
+  content: {
+    padding: 16,
+  },
+  label: {
+    color: COLORS.textLabel,
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginBottom: 4,
   },
   title: {
     color: COLORS.text,
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  description: {
+    color: COLORS.textMuted,
+    fontSize: 14,
+    lineHeight: 22,
   },
 });
