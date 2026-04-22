@@ -8,22 +8,20 @@ type Anomaly = {
   createdAt: string;
 };
 
-// Define what the context provides
 type AnomalyContextType = {
   anomalies: Anomaly[];
   addAnomaly: (name: string, description: string, image: string | null) => void;
+  deleteAnomaly: (id: number) => void;
 };
 
-// Create the context
 const AnomalyContext = createContext<AnomalyContextType>({
   anomalies: [],
   addAnomaly: () => {},
+  deleteAnomaly: () => {},
 });
 
-// Custom hook for easy access
 export const useAnomalies = () => useContext(AnomalyContext);
 
-// Provider component that wraps the app
 export function AnomalyProvider({ children }: { children: React.ReactNode }) {
   const [anomalies, setAnomalies] = useState<Anomaly[]>([]);
 
@@ -38,8 +36,12 @@ export function AnomalyProvider({ children }: { children: React.ReactNode }) {
     setAnomalies(prev => [newAnomaly, ...prev]);
   };
 
+  const deleteAnomaly = (id: number) => {
+    setAnomalies(prev => prev.filter(anomaly => anomaly.id !== id));
+  };
+
   return (
-    <AnomalyContext.Provider value={{ anomalies, addAnomaly }}>
+    <AnomalyContext.Provider value={{ anomalies, addAnomaly, deleteAnomaly }}>
       {children}
     </AnomalyContext.Provider>
   );

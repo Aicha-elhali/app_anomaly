@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../constants/theme';
 
 type AnomalyCardProps = {
@@ -7,16 +8,24 @@ type AnomalyCardProps = {
   description: string;
   image: string | null;
   createdAt: string;
+  onDelete?: () => void;
 };
 
-export default function AnomalyCard({ name, description, image, createdAt }: AnomalyCardProps) {
+export default function AnomalyCard({ name, description, image, createdAt, onDelete }: AnomalyCardProps) {
   return (
     <View style={styles.card}>
       {image && (
         <Image source={{ uri: image }} style={styles.cardImage} />
       )}
       <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{name}</Text>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>{name}</Text>
+          {onDelete && (
+            <TouchableOpacity onPress={onDelete}>
+              <Ionicons name="trash-outline" size={20} color="#E74C3C" />
+            </TouchableOpacity>
+          )}
+        </View>
         <Text style={styles.cardDescription}>{description}</Text>
         <Text style={styles.cardDate}>{createdAt}</Text>
       </View>
@@ -38,11 +47,17 @@ const styles = StyleSheet.create({
   cardContent: {
     padding: 14,
   },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
   cardTitle: {
     color: COLORS.text,
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 4,
+    flex: 1,
   },
   cardDescription: {
     color: COLORS.textMuted,
