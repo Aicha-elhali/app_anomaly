@@ -3,6 +3,9 @@
     "name": "AnomalyMonitor",
     "slug": "AnomalyMonitor",
     "scheme": "anomalymonitor",
+    "experiments": {
+      "typedRoutes": true
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
