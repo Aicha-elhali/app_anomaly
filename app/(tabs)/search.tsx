@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/theme';
+import { useAnomalies } from '../../context/AnomalyContext';
 
 type ApodResult = {
   date: string;
@@ -9,6 +11,7 @@ type ApodResult = {
   explanation: string;
   url: string;
   media_type: string;
+  copyright?: string;
 };
 
 export default function SearchScreen() {
@@ -16,6 +19,8 @@ export default function SearchScreen() {
   const [toDate, setToDate] = useState('');
   const [results, setResults] = useState<ApodResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<ApodResult | null>(null);
+  const { addAnomaly } = useAnomalies();
 
   const handleSearch = async () => {
     if (!fromDate.trim() || !toDate.trim()) {
@@ -34,7 +39,6 @@ export default function SearchScreen() {
         Alert.alert('Error', data.error.message);
         setResults([]);
       } else {
-        // Filter out videos, only keep images
         const imageResults = data.filter((item: ApodResult) => item.media_type === 'image');
         setResults(imageResults);
       }
@@ -42,6 +46,12 @@ export default function SearchScreen() {
       Alert.alert('Error', 'Failed to fetch data. Check your dates and try again.');
     }
     setLoading(false);
+  };
+
+  const handleSaveToAnomalies = (item: ApodResult) => {
+    addAnomaly(item.title, item.explanation, item.url);
+    setSelectedItem(null);
+    Alert.alert('Success', 'Saved to My Anomalies!');
   };
 
   return (
@@ -83,7 +93,11 @@ export default function SearchScreen() {
           )}
 
           {results.map((item) => (
-            <View key={item.date} style={styles.resultCard}>
+            <TouchableOpacity
+              key={item.date}
+              style={styles.resultCard}
+              onPress={() => setSelectedItem(item)}
+            >
               <Image source={{ uri: item.url }} style={styles.resultImage} />
               <View style={styles.resultContent}>
                 <Text style={styles.resultDate}>{item.date}</Text>
@@ -92,10 +106,49 @@ export default function SearchScreen() {
                   {item.explanation}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
+
+      {/* Detail Modal */}
+      <Modal
+        visible={selectedItem !== null}
+        animationType="slide"
+        transparent={false}
+      >
+        <SafeAreaView style={styles.modalScreen}>
+          <ScrollView>
+            {selectedItem && (
+              <View>
+                <View style={styles.modalHeader}>
+                  <Text style={styles.modalDate}>{selectedItem.date}</Text>
+                  <TouchableOpacity onPress={() => setSelectedItem(null)}>
+                    <Ionicons name="close-circle" size={28} color={COLORS.textMuted} />
+                  </TouchableOpacity>
+                </View>
+
+                <Image source={{ uri: selectedItem.url }} style={styles.modalImage} />
+
+                <View style={styles.modalContent}>
+                  <Text style={styles.modalTitle}>{selectedItem.title}</Text>
+                  {selectedItem.copyright && (
+                    <Text style={styles.modalCopyright}>© {selectedItem.copyright}</Text>
+                  )}
+                  <Text style={styles.modalDescription}>{selectedItem.explanation}</Text>
+
+                  <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={() => handleSaveToAnomalies(selectedItem)}
+                  >
+                    <Text style={styles.saveButtonText}>Save to My Anomalies</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          </ScrollView>
+        </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -189,5 +242,55 @@ const styles = StyleSheet.create({
   resultDescription: {
     color: COLORS.textMuted,
     fontSize: 12,
+  },
+  // Modal styles
+  modalScreen: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+  },
+  modalDate: {
+    color: COLORS.textMuted,
+    fontSize: 13,
+  },
+  modalImage: {
+    width: '100%',
+    height: 250,
+  },
+  modalContent: {
+    padding: 16,
+  },
+  modalTitle: {
+    color: COLORS.text,
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  modalCopyright: {
+    color: COLORS.textMuted,
+    fontSize: 12,
+    marginBottom: 12,
+  },
+  modalDescription: {
+    color: COLORS.textMuted,
+    fontSize: 14,
+    lineHeight: 22,
+    marginBottom: 24,
+  },
+  saveButton: {
+    backgroundColor: COLORS.accent,
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+  },
+  saveButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
