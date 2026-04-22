@@ -36,7 +36,7 @@ export default function AnomalyCard({ name, description, image, createdAt, onDel
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.card,
-    borderRadius: 14,
+    borderRadius: 16,
     marginBottom: 16,
     overflow: 'hidden',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   cardTitle: {
     color: COLORS.text,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   cardDescription: {
     color: COLORS.textMuted,
     fontSize: 13,
-    marginBottom: 6,
+    marginBottom: 15,
   },
   cardDate: {
     color: COLORS.textMuted,

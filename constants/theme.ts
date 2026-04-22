@@ -8,7 +8,7 @@ const COLORS = {
   textMuted: '#6B7194',
   textLabel: '#1A3B8F',
   border: '#D8DBE8',
-  card: '#FFFFFF',
+  card: '#ffffffff',
   success: '#1D9E4E',
 };
 

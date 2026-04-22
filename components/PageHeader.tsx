@@ -18,7 +18,7 @@ export default function PageHeader({ label, title }: PageHeaderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 24,
+    marginBottom: 16,
   },
   label: {
     color: COLORS.textLabel,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.text,
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
   },
 });
