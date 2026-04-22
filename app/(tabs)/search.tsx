@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../../constants/theme';
 
 export default function SearchScreen() {
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+
+  const handleSearch = () => {
+    console.log('Searching from', fromDate, 'to', toDate);
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
@@ -15,21 +22,25 @@ export default function SearchScreen() {
             <Text style={styles.fieldLabel}>FROM</Text>
             <TextInput
               style={styles.dateInput}
-              placeholder="20. Mar 2026"
+              placeholder="2026-03-20"
               placeholderTextColor={COLORS.textMuted}
+              value={fromDate}
+              onChangeText={setFromDate}
             />
           </View>
           <View style={styles.dateField}>
             <Text style={styles.fieldLabel}>TO</Text>
             <TextInput
               style={styles.dateInput}
-              placeholder="26. Mar 2026"
+              placeholder="2026-03-26"
               placeholderTextColor={COLORS.textMuted}
+              value={toDate}
+              onChangeText={setToDate}
             />
           </View>
         </View>
 
-        <TouchableOpacity style={styles.searchButton}>
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
