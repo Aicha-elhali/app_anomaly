@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import COLORS from '../../constants/theme';
 import { useAnomalies } from '../../context/AnomalyContext';
 
 export default function NewAnomalyScreen() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [image, setImage] = useState<string | null>(null);
   const { addAnomaly } = useAnomalies();
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 0.8,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   const handleSave = () => {
     if (!name.trim()) {
       Alert.alert('Error', 'Please enter a name for the anomaly.');
       return;
     }
-    addAnomaly(name, description, null);
+    addAnomaly(name, description, image);
     setName('');
     setDescription('');
+    setImage(null);
     Alert.alert('Success', 'Anomaly saved!');
   };
 
@@ -49,10 +64,16 @@ export default function NewAnomalyScreen() {
           />
 
           <Text style={styles.fieldLabel}>IMAGE</Text>
-          <TouchableOpacity style={styles.imagePicker}>
-            <Ionicons name="image-outline" size={32} color={COLORS.textMuted} />
-            <Text style={styles.imagePickerText}>Tap to select image</Text>
-          </TouchableOpacity>
+          {image ? (
+            <TouchableOpacity onPress={pickImage}>
+              <Image source={{ uri: image }} style={styles.selectedImage} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
+              <Ionicons name="image-outline" size={32} color={COLORS.textMuted} />
+              <Text style={styles.imagePickerText}>Tap to select image</Text>
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
             <Text style={styles.saveButtonText}>Save Anomaly</Text>
@@ -119,6 +140,12 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
     fontSize: 13,
     marginTop: 8,
+  },
+  selectedImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+    marginBottom: 24,
   },
   saveButton: {
     backgroundColor: COLORS.accent,
