@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   searchButton: {
-    backgroundColor: COLORS.purple,
+    backgroundColor: COLORS.accent,
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',

@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     borderStyle: 'dashed',
     borderRadius: 12,
-    height: 120,
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   selectedImage: {
     width: '100%',
-    height: 200,
+    height: 250,
     borderRadius: 12,
     marginBottom: 24,
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   saveButtonText: {
-    color: '#fff',
+    color: '#ffffffff',
     fontSize: 16,
     fontWeight: '700',
   },

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   heroImage: {
     width: '100%',
-    height: 200,
+    height: 250,
     borderRadius: 16,
   },
   content: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: COLORS.textMuted,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 22,
   },
 });
