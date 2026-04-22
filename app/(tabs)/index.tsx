@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import COLORS from '../../constants/theme';
+import PageHeader from '../../components/PageHeader';
 
 export default function HomeScreen() {
   return (
@@ -15,8 +16,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.label}>NASA ANOMALY MONITOR</Text>
-          <Text style={styles.title}>Home</Text>
+          <PageHeader label="NASA ANOMALY MONITOR" title="Home" />
           <Text style={styles.description}>
             Review the mission status, recent activity, and the most important anomaly alerts in one place.
           </Text>
@@ -41,20 +41,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-  },
-  label: {
-    color: COLORS.textLabel,
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    marginBottom: 4,
-  },
-  title: {
-    color: COLORS.text,
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 8,
   },
   description: {
     color: COLORS.textMuted,

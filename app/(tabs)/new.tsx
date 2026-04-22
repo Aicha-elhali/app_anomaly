@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import COLORS from '../../constants/theme';
+import PageHeader from '../../components/PageHeader';
 import { useAnomalies } from '../../context/AnomalyContext';
 
 export default function NewAnomalyScreen() {
@@ -40,8 +41,7 @@ export default function NewAnomalyScreen() {
     <SafeAreaView style={styles.screen}>
       <ScrollView>
         <View style={styles.content}>
-          <Text style={styles.label}>CREATE A REPORT</Text>
-          <Text style={styles.title}>New Anomaly</Text>
+          <PageHeader label="CREATE A REPORT" title="New Anomaly" />
 
           <Text style={styles.fieldLabel}>NAME</Text>
           <TextInput
@@ -91,19 +91,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-  },
-  label: {
-    color: COLORS.textLabel,
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 1.5,
-    marginBottom: 4,
-  },
-  title: {
-    color: COLORS.text,
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 24,
   },
   fieldLabel: {
     color: COLORS.textLabel,

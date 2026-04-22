@@ -3,6 +3,7 @@ import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/theme';
+import PageHeader from '../../components/PageHeader';
 import { useAnomalies } from '../../context/AnomalyContext';
 
 type ApodResult = {
@@ -58,8 +59,7 @@ export default function SearchScreen() {
     <SafeAreaView style={styles.screen}>
       <ScrollView>
         <View style={styles.content}>
-          <Text style={styles.label}>EXPLORE RECORDS</Text>
-          <Text style={styles.title}>APOD Search</Text>
+          <PageHeader label="EXPLORE RECORDS" title="APOD Search" />
 
           <View style={styles.dateRow}>
             <View style={styles.dateField}>
@@ -111,7 +111,6 @@ export default function SearchScreen() {
         </View>
       </ScrollView>
 
-      {/* Detail Modal */}
       <Modal
         visible={selectedItem !== null}
         animationType="slide"
@@ -160,19 +159,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-  },
-  label: {
-    color: COLORS.textLabel,
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 1.5,
-    marginBottom: 4,
-  },
-  title: {
-    color: COLORS.text,
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 24,
   },
   dateRow: {
     flexDirection: 'row',
@@ -243,7 +229,6 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
     fontSize: 12,
   },
-  // Modal styles
   modalScreen: {
     flex: 1,
     backgroundColor: COLORS.background,
