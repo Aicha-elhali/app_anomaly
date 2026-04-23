@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/theme';
 import PageHeader from '../../components/PageHeader';
 import ActionButton from '../../components/ActionButton';
+import InputField from '../../components/InputField';
 import { useAnomalies } from '../../context/AnomalyContext';
 
 type ApodResult = {
@@ -64,24 +65,10 @@ export default function SearchScreen() {
 
           <View style={styles.dateRow}>
             <View style={styles.dateField}>
-              <Text style={styles.fieldLabel}>FROM</Text>
-              <TextInput
-                style={styles.dateInput}
-                placeholder="2026-03-20"
-                placeholderTextColor={COLORS.textMuted}
-                value={fromDate}
-                onChangeText={setFromDate}
-              />
+              <InputField label="FROM" placeholder="2026-03-20" value={fromDate} onChangeText={setFromDate} />
             </View>
             <View style={styles.dateField}>
-              <Text style={styles.fieldLabel}>TO</Text>
-              <TextInput
-                style={styles.dateInput}
-                placeholder="2026-03-26"
-                placeholderTextColor={COLORS.textMuted}
-                value={toDate}
-                onChangeText={setToDate}
-              />
+              <InputField label="TO" placeholder="2026-03-26" value={toDate} onChangeText={setToDate} />
             </View>
           </View>
 
@@ -159,26 +146,9 @@ const styles = StyleSheet.create({
   dateRow: {
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 16,
   },
   dateField: {
     flex: 1,
-  },
-  fieldLabel: {
-    color: COLORS.textLabel,
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 1,
-    marginBottom: 8,
-  },
-  dateInput: {
-    backgroundColor: COLORS.surfaceLight,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 10,
-    padding: 14,
-    color: COLORS.text,
-    fontSize: 14,
   },
   searchButtonWrapper: {
     marginBottom: 24,

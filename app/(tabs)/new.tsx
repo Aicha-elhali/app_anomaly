@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,6 +7,7 @@ import COLORS from '../../constants/theme';
 import PageHeader from '../../components/PageHeader';
 import { useAnomalies } from '../../context/AnomalyContext';
 import ActionButton from '../../components/ActionButton';
+import InputField from '../../components/InputField';
 
 export default function NewAnomalyScreen() {
   const [name, setName] = useState('');
@@ -44,27 +45,10 @@ export default function NewAnomalyScreen() {
         <View style={styles.content}>
           <PageHeader label="CREATE A REPORT" title="New Anomaly" />
 
-          <Text style={styles.fieldLabel}>NAME</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="e.g. Mission Section 31"
-            placeholderTextColor={COLORS.textMuted}
-            value={name}
-            onChangeText={setName}
-          />
+          <InputField label="NAME" placeholder="e.g. Mission Section 31" value={name} onChangeText={setName} />
+          <InputField label="DESCRIPTION" placeholder="Describe the anomaly..." value={description} onChangeText={setDescription} multiline numberOfLines={4} />
 
-          <Text style={styles.fieldLabel}>DESCRIPTION</Text>
-          <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Describe the anomaly..."
-            placeholderTextColor={COLORS.textMuted}
-            multiline
-            numberOfLines={4}
-            value={description}
-            onChangeText={setDescription}
-          />
-
-          <Text style={styles.fieldLabel}>IMAGE</Text>
+          <Text style={styles.imageLabel}>IMAGE</Text>
           {image ? (
             <TouchableOpacity onPress={pickImage}>
               <Image source={{ uri: image }} style={styles.selectedImage} />
@@ -91,26 +75,12 @@ const styles = StyleSheet.create({
   content: {
     padding: 16,
   },
-  fieldLabel: {
+  imageLabel: {
     color: COLORS.textLabel,
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 1,
     marginBottom: 8,
-  },
-  input: {
-    backgroundColor: COLORS.surfaceLight,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 10,
-    padding: 14,
-    color: COLORS.text,
-    fontSize: 14,
-    marginBottom: 20,
-  },
-  textArea: {
-    height: 100,
-    textAlignVertical: 'top',
   },
   imagePicker: {
     borderWidth: 2,
