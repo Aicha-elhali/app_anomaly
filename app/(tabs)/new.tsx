@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import COLORS from '../../constants/theme';
 import PageHeader from '../../components/PageHeader';
 import { useAnomalies } from '../../context/AnomalyContext';
+import ActionButton from '../../components/ActionButton';
 
 export default function NewAnomalyScreen() {
   const [name, setName] = useState('');
@@ -75,9 +76,7 @@ export default function NewAnomalyScreen() {
             </TouchableOpacity>
           )}
 
-          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-            <Text style={styles.saveButtonText}>Save Anomaly</Text>
-          </TouchableOpacity>
+          <ActionButton label="Save Anomaly" onPress={handleSave} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -133,16 +132,5 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: 12,
     marginBottom: 24,
-  },
-  saveButton: {
-    backgroundColor: COLORS.accent,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-  },
-  saveButtonText: {
-    color: '#ffffffff',
-    fontSize: 16,
-    fontWeight: '700',
   },
 });

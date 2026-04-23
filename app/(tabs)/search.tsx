@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/theme';
 import PageHeader from '../../components/PageHeader';
+import ActionButton from '../../components/ActionButton';
 import { useAnomalies } from '../../context/AnomalyContext';
 
 type ApodResult = {
@@ -84,9 +85,9 @@ export default function SearchScreen() {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
+          <View style={styles.searchButtonWrapper}>
+            <ActionButton label="Search" onPress={handleSearch} />
+          </View>
 
           {loading && (
             <ActivityIndicator size="large" color={COLORS.accent} style={styles.loader} />
@@ -136,12 +137,7 @@ export default function SearchScreen() {
                   )}
                   <Text style={styles.modalDescription}>{selectedItem.explanation}</Text>
 
-                  <TouchableOpacity
-                    style={styles.saveButton}
-                    onPress={() => handleSaveToAnomalies(selectedItem)}
-                  >
-                    <Text style={styles.saveButtonText}>Save to My Anomalies</Text>
-                  </TouchableOpacity>
+                  <ActionButton label="Save to My Anomalies" onPress={() => handleSaveToAnomalies(selectedItem)} />
                 </View>
               </View>
             )}
@@ -184,17 +180,8 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 14,
   },
-  searchButton: {
-    backgroundColor: COLORS.accent,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
+  searchButtonWrapper: {
     marginBottom: 24,
-  },
-  searchButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '700',
   },
   loader: {
     marginVertical: 20,
@@ -232,7 +219,6 @@ const styles = StyleSheet.create({
   modalScreen: {
     flex: 1,
     backgroundColor: COLORS.background,
-
   },
   modalHeader: {
     flexDirection: 'row',
@@ -267,16 +253,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     marginBottom: 24,
-  },
-  saveButton: {
-    backgroundColor: COLORS.accent,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '700',
   },
 });
