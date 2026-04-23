@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
   modalScreen: {
     flex: 1,
     backgroundColor: COLORS.background,
+
   },
   modalHeader: {
     flexDirection: 'row',
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 6,
+    marginBottom: 16,
   },
   modalCopyright: {
     color: COLORS.textMuted,
@@ -262,8 +263,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   modalDescription: {
-    color: COLORS.textMuted,
-    fontSize: 14,
+    color: COLORS.text,
+    fontSize: 16,
     lineHeight: 22,
     marginBottom: 24,
   },
